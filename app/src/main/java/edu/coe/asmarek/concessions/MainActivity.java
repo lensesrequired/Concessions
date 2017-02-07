@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button plus2;
     private Button minus3;
     private Button plus3;
+    private Button cancel;
     private TextView item1Qty;
     private TextView item2Qty;
     private TextView item3Qty;
@@ -28,15 +29,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         idControls();
         setUpButtons();
@@ -82,6 +74,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         plus3 = (Button) this.findViewById(R.id.item3Plus);
         plus3.setOnClickListener(this);
+
+        cancel = (Button) this.findViewById(R.id.btnCancel);
+        cancel.setOnClickListener(this);
+
     }
 
     private void idControls() {
@@ -92,26 +88,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        idControls();
-
         switch (v.getId()) {
             case R.id.item1Minus:
-                item1Qty.setText(Integer.toString(Integer.parseInt(item1Qty.toString())-1));
+                if((Integer.parseInt(item1Qty.getText().toString()) > 0))
+                    item1Qty.setText(Integer.toString(Integer.parseInt(item1Qty.getText().toString())-1));
                 break;
             case R.id.item2Minus:
-                item2Qty.setText(Integer.toString(Integer.parseInt(item2Qty.toString())-1));
+                if((Integer.parseInt(item2Qty.getText().toString()) > 0))
+                    item2Qty.setText(Integer.toString(Integer.parseInt(item2Qty.getText().toString())-1));
                 break;
             case R.id.item3Minus:
-                item3Qty.setText(Integer.toString(Integer.parseInt(item3Qty.toString())-1));
+                if((Integer.parseInt(item3Qty.getText().toString()) > 0))
+                    item3Qty.setText(Integer.toString(Integer.parseInt(item3Qty.getText().toString())-1));
                 break;
             case R.id.item1Plus:
-                item1Qty.setText(Integer.toString(Integer.parseInt(item1Qty.toString())+1));
+                item1Qty.setText(Integer.toString(Integer.parseInt(item1Qty.getText().toString())+1));
                 break;
             case R.id.item2Plus:
-                item2Qty.setText(Integer.toString(Integer.parseInt(item2Qty.toString())+1));
+                item2Qty.setText(Integer.toString(Integer.parseInt(item2Qty.getText().toString())+1));
                 break;
             case R.id.item3Plus:
-                item3Qty.setText(Integer.toString(Integer.parseInt(item3Qty.toString())+1));
+                item3Qty.setText(Integer.toString(Integer.parseInt(item3Qty.getText().toString())+1));
+                break;
+            case R.id.btnCancel:
+                item1Qty.setText("0");
+                item2Qty.setText("0");
+                item3Qty.setText("0");
                 break;
         }
     }

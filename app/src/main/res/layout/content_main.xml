@@ -140,7 +140,24 @@
                 android:textSize="18dp"
                 android:text="+"/>
         </LinearLayout>
+        
 
     </LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:id="@+id/btnTotal"
+        android:text="Total"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:text="Cancel"
+        android:id="@+id/btnCancel"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/btnTotal" />
 
 </RelativeLayout>
