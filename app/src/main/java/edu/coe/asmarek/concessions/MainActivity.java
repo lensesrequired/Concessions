@@ -1,5 +1,6 @@
 package edu.coe.asmarek.concessions;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -19,6 +20,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button minus3;
     private Button plus3;
     private Button cancel;
+    private Button total;
     private TextView item1Qty;
     private TextView item2Qty;
     private TextView item3Qty;
@@ -30,7 +32,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        idControls();
         setUpButtons();
     }
 
@@ -57,58 +58,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void setUpButtons() {
-        minus1 = (Button) this.findViewById(R.id.item1Minus);
-        minus1.setOnClickListener(this);
-
-        plus1 = (Button) this.findViewById(R.id.item1Plus);
-        plus1.setOnClickListener(this);
-
-        minus2 = (Button) this.findViewById(R.id.item2Minus);
-        minus2.setOnClickListener(this);
-
-        plus2 = (Button) this.findViewById(R.id.item2Plus);
-        plus2.setOnClickListener(this);
-
-        minus3 = (Button) this.findViewById(R.id.item3Minus);
-        minus3.setOnClickListener(this);
-
-        plus3 = (Button) this.findViewById(R.id.item3Plus);
-        plus3.setOnClickListener(this);
-
         cancel = (Button) this.findViewById(R.id.btnCancel);
         cancel.setOnClickListener(this);
 
-    }
+        total = (Button) this.findViewById(R.id.btnTotal);
+        total.setOnClickListener(this);
 
-    private void idControls() {
-        item1Qty = (TextView) this.findViewById(R.id.item1Qty);
-        item2Qty = (TextView) this.findViewById(R.id.item2Qty);
-        item3Qty = (TextView) this.findViewById(R.id.item3Qty);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.item1Minus:
-                if((Integer.parseInt(item1Qty.getText().toString()) > 0))
-                    item1Qty.setText(Integer.toString(Integer.parseInt(item1Qty.getText().toString())-1));
-                break;
-            case R.id.item2Minus:
-                if((Integer.parseInt(item2Qty.getText().toString()) > 0))
-                    item2Qty.setText(Integer.toString(Integer.parseInt(item2Qty.getText().toString())-1));
-                break;
-            case R.id.item3Minus:
-                if((Integer.parseInt(item3Qty.getText().toString()) > 0))
-                    item3Qty.setText(Integer.toString(Integer.parseInt(item3Qty.getText().toString())-1));
-                break;
-            case R.id.item1Plus:
-                item1Qty.setText(Integer.toString(Integer.parseInt(item1Qty.getText().toString())+1));
-                break;
-            case R.id.item2Plus:
-                item2Qty.setText(Integer.toString(Integer.parseInt(item2Qty.getText().toString())+1));
-                break;
-            case R.id.item3Plus:
-                item3Qty.setText(Integer.toString(Integer.parseInt(item3Qty.getText().toString())+1));
+            case R.id.btnTotal:
+                Intent i = new Intent("edu.coe.asmarek.Concessions.TotalActivity");
+                //i.putExtra()
+                startActivity(i);
                 break;
             case R.id.btnCancel:
                 item1Qty.setText("0");

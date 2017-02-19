@@ -13,4 +13,6 @@
     tools:context="edu.coe.asmarek.concessions.TotalActivity"
     tools:showIn="@layout/activity_total">
 
+
+
 </RelativeLayout>

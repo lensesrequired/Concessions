@@ -18,129 +18,37 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <LinearLayout
+        <edu.coe.asmarek.concessions.itemControl
             android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:orientation="horizontal" >
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:id="@+id/item1Minus"
-                android:textSize="30dp"
-                android:text="-"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:layout_weight=".5">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:paddingTop="15dp"
-                    android:layout_gravity="center"
-                    android:text="Hot Dog - $1.50"
-                    android:id="@+id/item1" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_gravity="center"
-                    android:text="0"
-                    android:id="@+id/item1Qty" />
-            </LinearLayout>
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:id="@+id/item1Plus"
-                android:textSize="18dp"
-                android:text="+"/>
-        </LinearLayout>
+            android:layout_height="wrap_content" />
 
-        <LinearLayout
+        <edu.coe.asmarek.concessions.itemControl
             android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:orientation="horizontal" >
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:id="@+id/item2Minus"
-                android:textSize="30dp"
-                android:text="-"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:layout_weight=".5">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_gravity="center"
-                    android:paddingTop="15dp"
-                    android:text="Candy - $0.75"
-                    android:id="@+id/item2" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_gravity="center"
-                    android:text="0"
-                    android:id="@+id/item2Qty" />
-            </LinearLayout>
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:id="@+id/item2Plus"
-                android:textSize="18dp"
-                android:text="+"/>
-        </LinearLayout>
+            android:layout_height="wrap_content" />
 
-        <LinearLayout
+        <edu.coe.asmarek.concessions.itemControl
             android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:orientation="horizontal" >
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:id="@+id/item3Minus"
-                android:textSize="30dp"
-                android:text="-"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:layout_weight=".5">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_gravity="center"
-                    android:paddingTop="15dp"
-                    android:text="Pop - $1.00"
-                    android:id="@+id/item3" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_gravity="center"
-                    android:text="0"
-                    android:id="@+id/item3Qty" />
-            </LinearLayout>
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:id="@+id/item3Plus"
-                android:textSize="18dp"
-                android:text="+"/>
-        </LinearLayout>
+            android:layout_height="wrap_content" />
 
+        <edu.coe.asmarek.concessions.itemControl
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <edu.coe.asmarek.concessions.itemControl
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <edu.coe.asmarek.concessions.itemControl
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <edu.coe.asmarek.concessions.itemControl
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <edu.coe.asmarek.concessions.itemControl
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 

@@ -21,7 +21,12 @@
         <activity
             android:name=".TotalActivity"
             android:label="@string/title_activity_total"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="edu.coe.asmarek.Concessions.TotalActivity"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
