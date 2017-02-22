@@ -48,7 +48,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_getFinalTotal) {
-            return true;
+            Intent i = new Intent("edu.coe.asmarek.Concessions.FinalTotalActivity");
+
+            startActivity(i);
+        }
+        if (id == R.id.action_setItems) {
+            Intent i = new Intent("edu.coe.asmarek.Concessions.SetItemsActivity");
+
+            startActivity(i);
         }
 
         return super.onOptionsItemSelected(item);

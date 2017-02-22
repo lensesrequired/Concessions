@@ -58,7 +58,14 @@ public class TotalActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_getFinalTotal) {
-            return true;
+            Intent i = new Intent("edu.coe.asmarek.Concessions.FinalTotalActivity");
+
+            startActivity(i);
+        }
+        if (id == R.id.action_setItems) {
+            Intent i = new Intent("edu.coe.asmarek.Concessions.SetItemsActivity");
+
+            startActivity(i);
         }
 
         return super.onOptionsItemSelected(item);
