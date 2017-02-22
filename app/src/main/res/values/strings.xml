@@ -3,4 +3,6 @@
     <string name="action_setItems">Change Items &amp; Prices</string>
     <string name="action_finalTotal">Final Total</string>
     <string name="title_activity_total">Total</string>
+    <string name="title_activity_set_items">SetItemsActivity</string>
+    <string name="title_activity_final_total">FinalTotalActivity</string>
 </resources>

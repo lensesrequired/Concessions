@@ -23,10 +23,19 @@
             android:label="@string/title_activity_total"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
-                <action android:name="edu.coe.asmarek.Concessions.TotalActivity"/>
-                <category android:name="android.intent.category.DEFAULT"/>
+                <action android:name="edu.coe.asmarek.Concessions.TotalActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".SetItemsActivity"
+            android:label="@string/title_activity_set_items"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".FinalTotalActivity"
+            android:label="@string/title_activity_final_total"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
