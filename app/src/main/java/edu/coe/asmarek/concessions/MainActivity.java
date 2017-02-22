@@ -9,21 +9,17 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    private Button minus1;
-    private Button plus1;
-    private Button minus2;
-    private Button plus2;
-    private Button minus3;
-    private Button plus3;
     private Button cancel;
     private Button total;
-    private TextView item1Qty;
-    private TextView item2Qty;
-    private TextView item3Qty;
+    private ArrayList<itemControl> items;
+    private ArrayList<Integer> qtys;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +29,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setSupportActionBar(toolbar);
 
         setUpButtons();
+        createItemArray();
     }
 
     @Override
@@ -65,19 +62,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         total.setOnClickListener(this);
 
     }
+    
+    private void createItemArray() {
+        items = new ArrayList<itemControl>();
+        items.add((itemControl) findViewById(R.id.item1));
+        items.add((itemControl) findViewById(R.id.item2));
+        items.add((itemControl) findViewById(R.id.item3));
+    }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnTotal:
                 Intent i = new Intent("edu.coe.asmarek.Concessions.TotalActivity");
-                //i.putExtra()
+
+                qtys = new ArrayList<Integer>();
+                for (itemControl item:items) {
+                    qtys.add(item.getValue());
+                }
+
+                i.putExtra("qtys", qtys);
                 startActivity(i);
                 break;
             case R.id.btnCancel:
-                item1Qty.setText("0");
-                item2Qty.setText("0");
-                item3Qty.setText("0");
                 break;
         }
     }

@@ -1,6 +1,7 @@
 package edu.coe.asmarek.concessions;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,9 @@ public class itemControl extends LinearLayout implements View.OnClickListener{
     private Button plus;
     private Button minus;
     private TextView qty;
+    private TextView item;
+    private String itemName;
+    private float itemPrice;
 
     public itemControl(Context context) {
         super(context);
@@ -26,11 +30,21 @@ public class itemControl extends LinearLayout implements View.OnClickListener{
     public itemControl(Context context, AttributeSet attrs) {
         super(context, attrs);
         initializeView(context);
+
+        TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.itemControl);
+        itemName = ta.getString(R.styleable.itemControl_itemName);
+        itemPrice = ta.getFloat(R.styleable.itemControl_itemPrice, 0);
+        ta.recycle();
     }
 
     public itemControl(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initializeView(context);
+
+        TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.itemControl);
+        itemName = ta.getString(R.styleable.itemControl_itemName);
+        itemPrice = ta.getFloat(R.styleable.itemControl_itemPrice, 0);
+        ta.recycle();
     }
 
     private void initializeView(Context context) {
@@ -47,6 +61,9 @@ public class itemControl extends LinearLayout implements View.OnClickListener{
 
         plus.setOnClickListener(this);
         minus.setOnClickListener(this);
+
+        item = (TextView) findViewById(R.id.itemName);
+        item.setText(itemName + " - $" + Float.toString(itemPrice));
 
     }
 
