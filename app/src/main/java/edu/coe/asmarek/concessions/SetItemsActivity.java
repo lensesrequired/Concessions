@@ -1,6 +1,7 @@
 package edu.coe.asmarek.concessions;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -27,7 +28,6 @@ public class SetItemsActivity extends AppCompatActivity implements AdapterView.O
     private Button add;
     private Button clear;
     private Button save;
-    private Button cancel;
     private Button listClear;
     private EditText itemName;
     private EditText itemPrice;
@@ -77,6 +77,8 @@ public class SetItemsActivity extends AppCompatActivity implements AdapterView.O
     private void initView() {
         add = (Button) findViewById(R.id.btnAdd);
         clear = (Button) findViewById(R.id.btnClear);
+        listClear = (Button) findViewById(R.id.btnListClear);
+        save = (Button) findViewById(R.id.btnSave);
 
         itemName = (EditText) findViewById(R.id.edtItemName);
         itemPrice = (EditText) findViewById(R.id.edtItemPrice);
@@ -90,6 +92,8 @@ public class SetItemsActivity extends AppCompatActivity implements AdapterView.O
 
         add.setOnClickListener(this);
         clear.setOnClickListener(this);
+        listClear.setOnClickListener(this);
+        save.setOnClickListener(this);
     }
 
     @Override
@@ -104,6 +108,31 @@ public class SetItemsActivity extends AppCompatActivity implements AdapterView.O
             case R.id.btnClear:
                 itemName.setText("");
                 itemPrice.setText("0.00");
+                break;
+            case R.id.btnListClear:
+                itemArray.clear();
+                adapter.notifyDataSetChanged();
+                adapter.notifyDataSetInvalidated();
+                break;
+            case R.id.btnSave:
+                SharedPreferences s = getSharedPreferences("myFile", 0);
+                SharedPreferences.Editor e = s.edit();
+
+                e.putInt("numItems", itemArray.size());
+
+                for (int j = 0; j < itemArray.size(); j++) {
+                    String item = itemArray.get(j);
+                    int b = item.indexOf(" - ");
+
+                    String name = item.substring(0, b);
+                    Float price = Float.parseFloat(item.substring(b+4));
+
+                    e.putString("itemName"+j, name);
+                    e.putFloat("itemPrice"+j, price);
+                }
+
+                Intent i = new Intent("edu.coe.asmarek.Concessions.MainActivity");
+                startActivity(i);
                 break;
         }
 

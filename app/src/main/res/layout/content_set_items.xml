@@ -98,11 +98,6 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:text="Cancel"
-            android:id="@+id/btnCancel"/>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
             android:text="Clear"
             android:id="@+id/btnListClear"/>
         <Button
