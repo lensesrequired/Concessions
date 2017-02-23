@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/item3"
             app:itemName="Candy"
-            app:itemPrice="0.75"/>
+            app:itemPrice="0.75" />
 
     </LinearLayout>
 

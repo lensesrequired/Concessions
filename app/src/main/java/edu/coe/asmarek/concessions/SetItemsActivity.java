@@ -1,16 +1,39 @@
 package edu.coe.asmarek.concessions;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
-public class SetItemsActivity extends AppCompatActivity {
+import java.util.ArrayList;
+
+public class SetItemsActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, View.OnClickListener {
+
+    private Button add;
+    private Button clear;
+    private Button save;
+    private Button cancel;
+    private Button listClear;
+    private EditText itemName;
+    private EditText itemPrice;
+    private ListView list;
+    private ArrayAdapter<String> adapter;
+    private ArrayList<String> itemArray;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +42,7 @@ public class SetItemsActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        initView();
     }
 
     @Override
@@ -48,5 +72,55 @@ public class SetItemsActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void initView() {
+        add = (Button) findViewById(R.id.btnAdd);
+        clear = (Button) findViewById(R.id.btnClear);
+
+        itemName = (EditText) findViewById(R.id.edtItemName);
+        itemPrice = (EditText) findViewById(R.id.edtItemPrice);
+
+        itemArray = new ArrayList<String>();
+        list = (ListView) findViewById(R.id.listView);
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, itemArray);
+        list.setAdapter(adapter);
+
+        list.setOnItemClickListener(this);
+
+        add.setOnClickListener(this);
+        clear.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btnAdd:
+                if (itemArray.size() < 8) {
+                    itemArray.add(itemName.getText().toString() + " - $" + itemPrice.getText().toString());
+                    adapter.notifyDataSetChanged();
+                }
+                break;
+            case R.id.btnClear:
+                itemName.setText("");
+                itemPrice.setText("0.00");
+                break;
+        }
+
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        String item = itemArray.get(position);
+        int b = item.indexOf(" - ");
+
+        String name = item.substring(0, b);
+        String price = item.substring(b+4);
+        itemName.setText(name.toString());
+        itemPrice.setText(price.toString());
+
+        itemArray.remove(position);
+        adapter.notifyDataSetChanged();
+        adapter.notifyDataSetInvalidated();
     }
 }
