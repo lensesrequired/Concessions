@@ -63,7 +63,7 @@ public class itemControl extends LinearLayout implements View.OnClickListener{
         minus.setOnClickListener(this);
 
         item = (TextView) findViewById(R.id.itemName);
-        item.setText(itemName + " - $" + Float.toString(itemPrice));
+        setText(itemName, itemPrice);
 
     }
 
@@ -78,6 +78,11 @@ public class itemControl extends LinearLayout implements View.OnClickListener{
         else {
             qty.setText("0");
         }
+    }
+
+    public void setText(String itemN, Float itemP) {
+        item = (TextView) findViewById(R.id.itemName);
+        item.setText(itemN + " - $" + Float.toString(itemP));
     }
 
     @Override

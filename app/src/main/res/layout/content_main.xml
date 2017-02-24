@@ -16,28 +16,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <edu.coe.asmarek.concessions.itemControl
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/item1"
-            app:itemName="Hot Dog"
-            app:itemPrice="1.5"/>
-
-        <edu.coe.asmarek.concessions.itemControl
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/item2"
-            app:itemName="Soda"
-            app:itemPrice="1"/>
-
-        <edu.coe.asmarek.concessions.itemControl
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/item3"
-            app:itemName="Candy"
-            app:itemPrice="0.75" />
+        android:orientation="vertical"
+        android:id="@+id/llItemControls">
 
     </LinearLayout>
 
