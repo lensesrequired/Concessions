@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class SetItemsActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, View.OnClickListener {
 
@@ -46,13 +47,14 @@ public class SetItemsActivity extends AppCompatActivity implements AdapterView.O
         initView();
 
         SharedPreferences s = getSharedPreferences("myFile", 0);
-        int numItems = s.getInt("numItems", 0);
+        String itemNames = s.getString("itemNames", "");
+        String itemPrices = s.getString("itemPrices", "");
 
-        for(int j = 0; j < numItems; j++) {
-            String itemName = s.getString("itemName"+(((Integer)(j)).toString()), "");
-            Float itemPrice = s.getFloat("itemPrice"+(((Integer)(j)).toString()), 0);
+        ArrayList<String> names = new ArrayList<String>(Arrays.asList(itemNames.split(",")));
+        ArrayList<String> prices = new ArrayList<String>(Arrays.asList(itemPrices.split(",")));
 
-            itemArray.add(itemName + " - $" + itemPrice.toString());
+        for(int j = 0; j < names.size(); j++) {
+            itemArray.add(names.get(j) + " - $" + prices.get(j));
         }
 
         adapter.notifyDataSetChanged();
@@ -114,7 +116,8 @@ public class SetItemsActivity extends AppCompatActivity implements AdapterView.O
         switch (v.getId()) {
             case R.id.btnAdd:
                 if (itemArray.size() < 8) {
-                    itemArray.add(itemName.getText().toString() + " - $" + itemPrice.getText().toString());
+                    String p = itemPrice.getText().toString();
+                    itemArray.add(itemName.getText().toString() + " - $" + String.format("%.2f", Float.parseFloat(p)));
                     adapter.notifyDataSetChanged();
                 }
                 break;
@@ -128,22 +131,41 @@ public class SetItemsActivity extends AppCompatActivity implements AdapterView.O
                 adapter.notifyDataSetInvalidated();
                 break;
             case R.id.btnSave:
+                String itemsNameString = "";
+                String itemsPriceString = "";
                 SharedPreferences s = getSharedPreferences("myFile", 0);
                 SharedPreferences.Editor e = s.edit();
 
-                e.putInt("numItems", itemArray.size());
+                String allItemsString = s.getString("allItems", "");
+                String allItemPricesString = s.getString("allItemPrices", "");
+                String allItemTotalsString = s.getString("allItemTotals", "");
+
+                ArrayList<String> allNames = new ArrayList<String>(Arrays.asList(allItemsString.split(",")));
 
                 for (int j = 0; j < itemArray.size(); j++) {
                     String item = itemArray.get(j);
                     int b = item.indexOf(" - ");
 
-                    String name = item.substring(0, b);
-                    Float price = Float.parseFloat(item.substring(b+4));
+                    itemsNameString = itemsNameString + item.substring(0, b);
+                    itemsPriceString = itemsPriceString + item.substring(b+4);
 
-                    e.putString("itemName"+j, name);
-                    e.putFloat("itemPrice"+j, price);
+                    if(allNames.indexOf(item.substring(0, b)) == (-1)) {
+                        allItemsString = allItemsString + item.substring(0, b) + ",";
+                        allItemPricesString = allItemPricesString + item.substring(b+4) + ",";
+                        allItemTotalsString = allItemTotalsString + "0,";
+                    }
+
+                    if(j < itemArray.size()-1) {
+                        itemsNameString = itemsNameString + ",";
+                        itemsPriceString = itemsPriceString + ",";
+                    }
                 }
 
+                e.putString("allItems", allItemsString.substring(0, allItemsString.length()-2));
+                e.putString("allPrices", allItemPricesString.substring(0, allItemPricesString.length()-2));
+                e.putString("allTotals", allItemTotalsString.substring(0, allItemTotalsString.length()-2));
+                e.putString("itemNames", itemsNameString);
+                e.putString("itemPrices", itemsPriceString);
                 e.commit();
 
                 Intent i = new Intent("edu.coe.asmarek.Concessions.MainActivity");

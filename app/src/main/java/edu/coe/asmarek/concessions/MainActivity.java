@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private Button cancel;
@@ -69,18 +70,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void setUpItemControls() {
         SharedPreferences s = getSharedPreferences("myFile", 0);
-        int numItems = s.getInt("numItems", 0);
+        //int numItems = s.getInt("numItems", 0);
         items = new ArrayList<itemControl>();
         itemControls = (LinearLayout) findViewById(R.id.llItemControls);
 
-        for(int j = 0; j < numItems; j++) {
-            String itemName = s.getString("itemName"+(((Integer)(j)).toString()), "");
-            Float itemPrice = s.getFloat("itemPrice"+(((Integer)(j)).toString()), 0);
+        String itemNames = s.getString("itemNames", "");
+        String itemPrices = s.getString("itemPrices", "");
 
+        ArrayList<String> names = new ArrayList<String>(Arrays.asList(itemNames.split(",")));
+        ArrayList<String> prices = new ArrayList<String>(Arrays.asList(itemPrices.split(",")));
+
+        for(int j = 0; j < names.size(); j++) {
             itemControl itemC = new itemControl(this);
-            itemC.setText(itemName, itemPrice);
+            itemC.setText(names.get(j), Float.parseFloat(prices.get(j)));
 
             itemControls.addView(itemC);
+            items.add(itemC);
         }
 
         //Toast.makeText(this, ((Integer) numItems).toString(), Toast.LENGTH_SHORT).show();
@@ -110,6 +115,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(i);
                 break;
             case R.id.btnCancel:
+                for (itemControl item:items) {
+                    item.setValue(0);
+                }
                 break;
         }
     }

@@ -3,6 +3,7 @@ package edu.coe.asmarek.concessions;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -50,6 +51,13 @@ public class itemControl extends LinearLayout implements View.OnClickListener{
     private void initializeView(Context context) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.itemcontrol, this);
+
+        plus = (Button) findViewById(R.id.btnPlus);
+        minus = (Button) findViewById(R.id.btnMinus);
+        qty = (TextView) findViewById(R.id.itemQty);
+
+        plus.setOnClickListener(this);
+        minus.setOnClickListener(this);
     }
 
     protected void onFinishInflate() {
@@ -82,7 +90,7 @@ public class itemControl extends LinearLayout implements View.OnClickListener{
 
     public void setText(String itemN, Float itemP) {
         item = (TextView) findViewById(R.id.itemName);
-        item.setText(itemN + " - $" + Float.toString(itemP));
+        item.setText(itemN + " - $" + String.format("%.2f", itemP));
     }
 
     @Override
