@@ -50,14 +50,17 @@ public class SetItemsActivity extends AppCompatActivity implements AdapterView.O
         String itemNames = s.getString("itemNames", "");
         String itemPrices = s.getString("itemPrices", "");
 
-        ArrayList<String> names = new ArrayList<String>(Arrays.asList(itemNames.split(",")));
-        ArrayList<String> prices = new ArrayList<String>(Arrays.asList(itemPrices.split(",")));
+        if(itemNames != "") {
+            ArrayList<String> names = new ArrayList<String>(Arrays.asList(itemNames.split(",")));
+            ArrayList<String> prices = new ArrayList<String>(Arrays.asList(itemPrices.split(",")));
 
-        for(int j = 0; j < names.size(); j++) {
-            itemArray.add(names.get(j) + " - $" + prices.get(j));
+
+            for (int j = 0; j < names.size(); j++) {
+                itemArray.add(names.get(j) + " - $" + prices.get(j));
+            }
+
+            adapter.notifyDataSetChanged();
         }
-
-        adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -117,8 +120,11 @@ public class SetItemsActivity extends AppCompatActivity implements AdapterView.O
             case R.id.btnAdd:
                 if (itemArray.size() < 8) {
                     String p = itemPrice.getText().toString();
-                    itemArray.add(itemName.getText().toString() + " - $" + String.format("%.2f", Float.parseFloat(p)));
-                    adapter.notifyDataSetChanged();
+                    String n = itemName.getText().toString();
+                    if(!p.matches("") && !n.matches("")) {
+                        itemArray.add(n + " - $" + String.format("%.2f", Float.parseFloat(p)));
+                        adapter.notifyDataSetChanged();
+                    }
                 }
                 break;
             case R.id.btnClear:
@@ -136,9 +142,18 @@ public class SetItemsActivity extends AppCompatActivity implements AdapterView.O
                 SharedPreferences s = getSharedPreferences("myFile", 0);
                 SharedPreferences.Editor e = s.edit();
 
-                String allItemsString = s.getString("allItems", "");
-                String allItemPricesString = s.getString("allItemPrices", "");
-                String allItemTotalsString = s.getString("allItemTotals", "");
+                String allItemsString = s.getString("allItems", ",");
+                String allItemTotalsString = s.getString("allTotals", ",");
+
+                Log.d("allTotals", allItemTotalsString);
+
+                if(!allItemsString.matches(",")) {
+                    allItemsString = allItemsString + ",";
+                    allItemTotalsString = allItemTotalsString + ",";
+                } else {
+                    allItemsString = "";
+                    allItemTotalsString = "";
+                }
 
                 ArrayList<String> allNames = new ArrayList<String>(Arrays.asList(allItemsString.split(",")));
 
@@ -151,7 +166,6 @@ public class SetItemsActivity extends AppCompatActivity implements AdapterView.O
 
                     if(allNames.indexOf(item.substring(0, b)) == (-1)) {
                         allItemsString = allItemsString + item.substring(0, b) + ",";
-                        allItemPricesString = allItemPricesString + item.substring(b+4) + ",";
                         allItemTotalsString = allItemTotalsString + "0,";
                     }
 
@@ -161,11 +175,17 @@ public class SetItemsActivity extends AppCompatActivity implements AdapterView.O
                     }
                 }
 
-                e.putString("allItems", allItemsString.substring(0, allItemsString.length()-2));
-                e.putString("allPrices", allItemPricesString.substring(0, allItemPricesString.length()-2));
-                e.putString("allTotals", allItemTotalsString.substring(0, allItemTotalsString.length()-2));
+                e.putString("allItems", allItemsString.substring(0, allItemsString.length()-1));
+                e.putString("allTotals", allItemTotalsString.substring(0, allItemTotalsString.length()-1));
                 e.putString("itemNames", itemsNameString);
                 e.putString("itemPrices", itemsPriceString);
+
+
+                Log.d("allItems", allItemsString.substring(0, allItemsString.length()-1));
+                Log.d("allTotals", allItemTotalsString.substring(0, allItemTotalsString.length()-1));
+                Log.d("itemNames", itemsNameString);
+                Log.d("itemPrices", itemsPriceString);
+
                 e.commit();
 
                 Intent i = new Intent("edu.coe.asmarek.Concessions.MainActivity");

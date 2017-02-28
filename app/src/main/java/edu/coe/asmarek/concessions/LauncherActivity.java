@@ -13,20 +13,18 @@ public class LauncherActivity extends AppCompatActivity {
         setContentView(R.layout.activity_launcher);
 
         SharedPreferences s = getSharedPreferences("myFile", 0);
+        SharedPreferences.Editor e = s.edit();
+        e.clear();
+        e.commit();
 
-        try {
-            int numItems = s.getInt("numItems", 0);
-            if(numItems > 0) {
-                Intent i = new Intent("edu.coe.asmarek.Concessions.MainActivity");
-                startActivity(i);
-            }
-            else {
-                Intent i = new Intent("edu.coe.asmarek.Concessions.SetItemsActivity");
-                startActivity(i);
-            }
-        } catch(Exception e) {
+        //int numItems = s.getInt("numItems", 0);
+        //if(numItems > 0) {
+            //Intent i = new Intent("edu.coe.asmarek.Concessions.MainActivity");
+            //startActivity(i);
+        //}
+        //else {
             Intent i = new Intent("edu.coe.asmarek.Concessions.SetItemsActivity");
             startActivity(i);
-        }
+        //}
     }
 }

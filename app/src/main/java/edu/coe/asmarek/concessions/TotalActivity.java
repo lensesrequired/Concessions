@@ -8,6 +8,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,6 +30,7 @@ public class TotalActivity extends AppCompatActivity implements View.OnClickList
     private TextView totalText;
     private Button cancel;
     private Button submit;
+    private ArrayList<String> names;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +84,7 @@ public class TotalActivity extends AppCompatActivity implements View.OnClickList
         String itemNames = s.getString("itemNames", "");
         String itemPrices = s.getString("itemPrices", "");
 
-        ArrayList<String> names = new ArrayList<String>(Arrays.asList(itemNames.split(",")));
+        names = new ArrayList<String>(Arrays.asList(itemNames.split(",")));
         ArrayList<String> prices = new ArrayList<String>(Arrays.asList(itemPrices.split(",")));
 
         for(int j = 0; j < itemQtys.size(); j++)
@@ -147,8 +149,47 @@ public class TotalActivity extends AppCompatActivity implements View.OnClickList
 
                 String allItems = s.getString("allItems", "");
                 String allTotals = s.getString("allTotals", "");
+                Float finalTotal = s.getFloat("finalTotal", 0);
+                String newAllTotals = "";
+
+                Log.d("allTotals", allTotals);
 
                 ArrayList<String> allNames = new ArrayList<String>(Arrays.asList(allItems.split(",")));
+                ArrayList<String> allItemTotals = new ArrayList<String>(Arrays.asList(allTotals.split(",")));
+
+                for(int j = 0; j < itemQtys.size(); j++) {
+                    if (itemQtys.get(j) > 0) {
+                        int m = allNames.indexOf(names.get(j));
+                        int newVal = (Integer.parseInt(allItemTotals.get(m))) + itemQtys.get(j);
+                        allItemTotals.set(j, ((Integer) newVal).toString());
+                    }
+
+                    newAllTotals = newAllTotals + allItemTotals.get(j);
+
+                    if(j != itemQtys.size()-1) {
+                        newAllTotals = newAllTotals + ",";
+                    }
+                }
+
+                if(itemQtys.size() < allItemTotals.size()) {
+                    for(int j = itemQtys.size(); j < allItemTotals.size(); j++) {
+                        newAllTotals = newAllTotals + "," + allItemTotals.get(j);
+                    }
+                }
+
+                Log.d("allTotals", newAllTotals);
+
+                SharedPreferences.Editor e = s.edit();
+                if(newAllTotals.endsWith(",")) {
+                    e.putString("allTotals", newAllTotals.substring(0, newAllTotals.length() - 1));
+                } else {
+                    e.putString("allTotals", newAllTotals);
+                }
+                e.putFloat("finalTotal", finalTotal + Float.parseFloat(totalText.getText().toString()));
+                e.commit();
+
+                i = new Intent("edu.coe.asmarek.Concessions.MainActivity");
+                startActivity(i);
 
                 break;
         }

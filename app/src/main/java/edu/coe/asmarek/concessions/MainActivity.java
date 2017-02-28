@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +27,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ArrayList<itemControl> items;
     private ArrayList<Integer> qtys;
     private LinearLayout itemControls;
+    private TextView totalVal;
+    private ArrayList<String> prices;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,19 +76,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //int numItems = s.getInt("numItems", 0);
         items = new ArrayList<itemControl>();
         itemControls = (LinearLayout) findViewById(R.id.llItemControls);
+        totalVal = (TextView) findViewById(R.id.txtTotalVal);
 
         String itemNames = s.getString("itemNames", "");
         String itemPrices = s.getString("itemPrices", "");
 
         ArrayList<String> names = new ArrayList<String>(Arrays.asList(itemNames.split(",")));
-        ArrayList<String> prices = new ArrayList<String>(Arrays.asList(itemPrices.split(",")));
+        prices = new ArrayList<String>(Arrays.asList(itemPrices.split(",")));
 
-        for(int j = 0; j < names.size(); j++) {
-            itemControl itemC = new itemControl(this);
-            itemC.setText(names.get(j), Float.parseFloat(prices.get(j)));
+        Log.d("Size", ((Integer) names.size()).toString());
 
-            itemControls.addView(itemC);
-            items.add(itemC);
+        if(names.get(0) != "") {
+            for (int j = 0; j < names.size(); j++) {
+                itemControl itemC = new itemControl(this);
+                Log.d("Name", names.get(j));
+                Log.d("Price", prices.get(j));
+                itemC.setText(names.get(j), Float.parseFloat(prices.get(j)));
+
+                itemControls.addView(itemC);
+                items.add(itemC);
+            }
         }
 
         //Toast.makeText(this, ((Integer) numItems).toString(), Toast.LENGTH_SHORT).show();
@@ -97,7 +107,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         total = (Button) this.findViewById(R.id.btnTotal);
         total.setOnClickListener(this);
-
     }
 
     @Override
