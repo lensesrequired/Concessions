@@ -97,8 +97,8 @@ public class FinalTotalActivity extends AppCompatActivity implements View.OnClic
             LinearLayout ll = new LinearLayout(this);
 
             //LinearLayout.LayoutParams lp3 = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 3);
-            LinearLayout.LayoutParams lp2 = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 2);
-            LinearLayout.LayoutParams lp1 = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1);
+            LinearLayout.LayoutParams lp2 = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 2);
+            LinearLayout.LayoutParams lp1 = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1);
 
             itemN.setText(allItemNames.get(j));
             itemN.setTextSize(25);
@@ -146,6 +146,8 @@ public class FinalTotalActivity extends AppCompatActivity implements View.OnClic
                 e.putString("allItems", "");
                 e.putString("allPrices", "");
                 e.putString("allTotals", "");
+
+                e.commit();
 
                 i = new Intent("edu.coe.asmarek.Concessions.MainActivity");
                 startActivity(i);

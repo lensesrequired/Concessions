@@ -22,6 +22,7 @@ public class itemControl extends LinearLayout implements View.OnClickListener{
     private TextView item;
     private String itemName;
     private float itemPrice;
+    private OnItemControlChangeListener mListener;
 
     public itemControl(Context context) {
         super(context);
@@ -106,5 +107,10 @@ public class itemControl extends LinearLayout implements View.OnClickListener{
         }
 
         setValue(val);
+        mListener.onItemControlChange();
+    }
+
+    public void setOnItemChangeListener(OnItemControlChangeListener onItemChangeListener) {
+        mListener = onItemChangeListener;
     }
 }

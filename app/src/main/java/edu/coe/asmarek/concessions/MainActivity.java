@@ -21,7 +21,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, OnItemControlChangeListener {
     private Button cancel;
     private Button total;
     private ArrayList<itemControl> items;
@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private LinearLayout itemControls;
     private TextView totalVal;
     private ArrayList<String> prices;
+    Float t;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +77,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //int numItems = s.getInt("numItems", 0);
         items = new ArrayList<itemControl>();
         itemControls = (LinearLayout) findViewById(R.id.llItemControls);
-        totalVal = (TextView) findViewById(R.id.txtTotalVal);
 
         String itemNames = s.getString("itemNames", "");
         String itemPrices = s.getString("itemPrices", "");
@@ -92,6 +92,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Log.d("Name", names.get(j));
                 Log.d("Price", prices.get(j));
                 itemC.setText(names.get(j), Float.parseFloat(prices.get(j)));
+                itemC.setOnItemChangeListener(this);
 
                 itemControls.addView(itemC);
                 items.add(itemC);
@@ -104,6 +105,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void setUpButtons() {
         cancel = (Button) this.findViewById(R.id.btnCancel);
         cancel.setOnClickListener(this);
+        totalVal = (TextView) findViewById(R.id.txtTotalVal);
 
         total = (Button) this.findViewById(R.id.btnTotal);
         total.setOnClickListener(this);
@@ -128,6 +130,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     item.setValue(0);
                 }
                 break;
+        }
+    }
+
+    @Override
+    public void onItemControlChange() {
+        updateTotal();
+    }
+
+    private void updateTotal() {
+        Float t = Float.parseFloat("0");
+        for(int j = 0; j < items.size(); j++) {
+            int v = items.get(j).getValue();
+            Float p = Float.parseFloat(prices.get(j));
+            t = v*p;
+        }
+        if(t != 0) {
+            totalVal.setText(String.format("%.2f", t));
+        } else {
+            totalVal.setText("0.00");
         }
     }
 }

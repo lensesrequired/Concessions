@@ -14,17 +14,18 @@ public class LauncherActivity extends AppCompatActivity {
 
         SharedPreferences s = getSharedPreferences("myFile", 0);
         SharedPreferences.Editor e = s.edit();
-        e.clear();
-        e.commit();
+        //e.clear();
+        //e.commit();
 
-        //int numItems = s.getInt("numItems", 0);
-        //if(numItems > 0) {
-            //Intent i = new Intent("edu.coe.asmarek.Concessions.MainActivity");
-            //startActivity(i);
-        //}
-        //else {
+        boolean beenOpened = s.getBoolean("beenOpened", false);
+        if(beenOpened) {
+            Intent i = new Intent("edu.coe.asmarek.Concessions.MainActivity");
+            startActivity(i);
+        }
+        else {
+            e.putBoolean("beenOpened", true);
             Intent i = new Intent("edu.coe.asmarek.Concessions.SetItemsActivity");
             startActivity(i);
-        //}
+        }
     }
 }
