@@ -87,6 +87,56 @@
         android:orientation="horizontal"
         android:gravity="right">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/txtAmtRec"
+            android:text="Amount Received: $"
+            android:textSize="30dp"
+            android:gravity="bottom"
+            />
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:inputType="numberDecimal"
+            android:id="@+id/edtAmtRec"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:weightSum="2"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:gravity="right">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="match_parent"
+            android:id="@+id/txtTenderAmount"
+            android:text="Change Due: $0.00"
+            android:textSize="30dp"
+            android:gravity="bottom"
+            />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Calc"
+            android:id="@+id/btnCalc"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:gravity="right">
+
         <Button
             android:layout_width="wrap_content"
             android:layout_height="match_parent"

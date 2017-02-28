@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -31,6 +32,9 @@ public class TotalActivity extends AppCompatActivity implements View.OnClickList
     private Button cancel;
     private Button submit;
     private ArrayList<String> names;
+    private EditText amtRec;
+    private TextView chgdue;
+    private Button calc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,9 +136,11 @@ public class TotalActivity extends AppCompatActivity implements View.OnClickList
     private void setupButtons() {
         cancel = (Button) findViewById(R.id.btnCancel);
         submit = (Button) findViewById(R.id.btnSubmit);
+        calc = (Button) findViewById(R.id.btnCalc);
 
         cancel.setOnClickListener(this);
         submit.setOnClickListener(this);
+        calc.setOnClickListener(this);
     }
 
     @Override
@@ -191,6 +197,12 @@ public class TotalActivity extends AppCompatActivity implements View.OnClickList
                 i = new Intent("edu.coe.asmarek.Concessions.MainActivity");
                 startActivity(i);
 
+                break;
+            case R.id.btnCalc:
+                chgdue = (TextView) findViewById(R.id.txtTenderAmount);
+                amtRec = (EditText) findViewById(R.id.edtAmtRec);
+                String t = totalText.getText().toString();
+                chgdue.setText("Change Due: $" + ((Float)(Float.parseFloat(amtRec.getText().toString())-Float.parseFloat(t))).toString());
                 break;
         }
     }
