@@ -31,7 +31,6 @@ public class SetItemsActivity extends AppCompatActivity implements AdapterView.O
     private Button clear;
     private Button save;
     private Button listClear;
-    private Button priceClear;
     private EditText itemName;
     private EditText itemPrice;
     private ListView list;
@@ -98,7 +97,6 @@ public class SetItemsActivity extends AppCompatActivity implements AdapterView.O
         clear = (Button) findViewById(R.id.btnClear);
         listClear = (Button) findViewById(R.id.btnListClear);
         save = (Button) findViewById(R.id.btnSave);
-        priceClear = (Button) findViewById(R.id.btnPClear);
 
         itemName = (EditText) findViewById(R.id.edtItemName);
         itemPrice = (EditText) findViewById(R.id.edtItemPrice);
@@ -114,7 +112,6 @@ public class SetItemsActivity extends AppCompatActivity implements AdapterView.O
         clear.setOnClickListener(this);
         listClear.setOnClickListener(this);
         save.setOnClickListener(this);
-        priceClear.setOnClickListener(this);
     }
 
     @Override
@@ -124,11 +121,9 @@ public class SetItemsActivity extends AppCompatActivity implements AdapterView.O
                 if (itemArray.size() < 8) {
                     String p = itemPrice.getText().toString();
                     String n = itemName.getText().toString();
-                    if(!p.matches("") && !n.matches("") && !p.matches("0.00")) {
+                    if(!p.matches("") && !n.matches("")) {
                         itemArray.add(n + " - $" + String.format("%.2f", Float.parseFloat(p)));
                         adapter.notifyDataSetChanged();
-                        itemPrice.setText("0.00");
-                        itemName.setText("");
                     }
                 }
                 break;
@@ -196,9 +191,6 @@ public class SetItemsActivity extends AppCompatActivity implements AdapterView.O
                 Intent i = new Intent("edu.coe.asmarek.Concessions.MainActivity");
                 startActivity(i);
                 break;
-            case R.id.btnPClear:
-                itemPrice.setText("");
-                break;
         }
 
     }
@@ -206,7 +198,7 @@ public class SetItemsActivity extends AppCompatActivity implements AdapterView.O
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         String item = itemArray.get(position);
-        int b = item.indexOf(" - $");
+        int b = item.indexOf(" - ");
 
         String name = item.substring(0, b);
         String price = item.substring(b+4);

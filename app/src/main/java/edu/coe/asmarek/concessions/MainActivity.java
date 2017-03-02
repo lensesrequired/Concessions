@@ -93,7 +93,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Log.d("Price", prices.get(j));
                 itemC.setText(names.get(j), Float.parseFloat(prices.get(j)));
                 itemC.setOnItemChangeListener(this);
-
                 itemControls.addView(itemC);
                 items.add(itemC);
             }
